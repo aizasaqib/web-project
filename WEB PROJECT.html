@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Easy Password Generator</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem 3rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(10px);
+    }
+
+    h2 {
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+    }
+
+    button {
+      background-color: #ff6b6b;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #ff4757;
+      transform: scale(1.05);
+    }
+
+    #result {
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      background-color: rgba(255, 255, 255, 0.15);
+      padding: 1rem;
+      border-radius: 8px;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Click to Generate Password</h2>
+    <button onclick="generatePassword()">Generate</button>
+    <p id="result">Your password will appear here</p>
+  </div>
+
+  <script>
+    class Password {
+      constructor(length) {
+        this.length = length;
+        this.lower = "abcdefghijklmnopqrstuvwxyz";
+        this.upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        this.special = "!@#$%&*";
+        this.all = this.lower + this.upper + this.special;
+      }
+
+      getRandomChar(chars) {
+        return chars[Math.floor(Math.random() * chars.length)];
+      }
+
+      generate() {
+        let password = "";
+
+        password += this.getRandomChar(this.lower);
+        password += this.getRandomChar(this.upper);
+        password += this.getRandomChar(this.special);
+
+        for (let i = 3; i < this.length; i++) {
+          password += this.getRandomChar(this.all);
+        }
+
+        return password;
+      }
+    }
+
+    function generatePassword() {
+      const p = new Password(10); 
+      const result = p.generate();
+      document.getElementById("result").innerText = result;
+    }
+  </script>
+
+</body>
+</html>
